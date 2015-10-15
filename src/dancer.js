@@ -33,7 +33,9 @@
 //====================PSEUDOCLASSICAL
 var makeDancer = function (top, left, timeBetweenSteps) {
   this.$node = $('<span class="dancer"></span>');
-  this.step(timeBetweenSteps);
+  this.left = left;
+  this.top = top;
+  this.step();
   this.setPosition(top, left);
   this.timeBetweenSteps = timeBetweenSteps;
 };
@@ -41,9 +43,12 @@ makeDancer.prototype.step = function () {
   setTimeout(this.step.bind(this), this.timeBetweenSteps);
 };
 makeDancer.prototype.setPosition = function (top, left) {
+  this.top = top;
+  this.left = left;
   this.styleSettings = {
     top: top,
     left: left
   };
   this.$node.css(this.styleSettings);
 };
+

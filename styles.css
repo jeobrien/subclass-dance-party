@@ -4,6 +4,7 @@ body, html{
 body{
   margin: 0px;
   background-color:#444;
+  background: black url("img/dancefloor.jpg") no-repeat fixed center center;
   font-size: 18px;
 }
 body, a:link, a:visited, a:active{
@@ -21,7 +22,32 @@ body, a:link, a:visited, a:active{
   background-color: #777;
 }
 .dancer{
-  border:10px solid red;
-  border-radius:10px;
   position:absolute;
+}
+.blinkyDancer{
+  background-image: url("img/banana.gif");
+  background-repeat:no-repeat;
+  background-position: center bottom;
+  background-size: 100% 100%;
+  width:182.5px;
+  height:180px;
+}
+.fadingDancer{
+  background-image: url("img/squidwird.gif");
+  background-repeat:no-repeat;
+  background-position: center bottom;
+  background-size: 100% 100%;
+  width:185px;
+  height:185px;
+}
+.slidingDancer{
+  background-image: url("img/man.gif");
+  background-repeat:no-repeat;
+  background-position: center bottom;
+  background-size: 100% 100%;
+  width:147.6px;
+  height:180px;
+}
+.button {
+
 }
