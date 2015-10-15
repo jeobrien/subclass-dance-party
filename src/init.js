@@ -122,7 +122,7 @@ $(document).ready(function() {
     // $('.dancer').css({top:300, left: 400});
     for (var i = 0; i < window.dancers.length; i++) {
       // console.log(window.dancers[i]);
-      window.dancers[i].setPosition(300,i*100);
+      window.dancers[i].setPosition(300,i*100+200);
     };
   });
 
