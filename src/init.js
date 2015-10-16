@@ -4,6 +4,9 @@ var _move = function (node,x,y){
   var newY = node.top-y;
   node.setPosition(newY,newX);
 }
+
+window.stopMoving = false;
+
 var moveIntoPairs = function (node1, node2, steps) {
   var difY = (node1.top - node2.top)/2;
   var difX = (node2.left - node1.left)/2;
@@ -26,6 +29,36 @@ var moveIntoPairs = function (node1, node2, steps) {
   },time);
   //};
 };
+
+var lissajous = function(t,sizex, sizey,speed) {
+  var result = [];
+  result.push(3*sizex*Math.cos(3*speed*t));
+  result.push(sizey*Math.cos(1.5*speed*t+5))
+  return result;
+};
+
+var lissajousMove = function(node) {
+    var t = 0;
+    var steps = 200;
+    var pos = Math.random()-.5;
+    var speed = Math.random()+pos;
+    var sizeX = Math.random()*.2-.1;
+    var sizeY = Math.random()*.2-.1;
+
+
+    var animate = setInterval(function(){
+      var lissajousePairs = lissajous(t/(5*steps),sizeX,sizeY,speed);
+      var lissajousX = lissajousePairs[0];
+      var lissajousY = lissajousePairs[1];
+      _move(node,lissajousX,lissajousY);
+      t++;
+      if (window.stopMoving){
+        clearInterval(animate);
+      }
+    },1000/steps);
+};
+
+
 
 var pythagorean = function (top1, top2, left1, left2) {
   return Math.sqrt(Math.pow((top1-top2),2) + Math.pow((left1-left2),2));
@@ -82,6 +115,12 @@ var matchClosest = function (obj) {
   return pairs;
 };
 
+var dancerEach = function(cb){
+  for (var i = 0; i < window.dancers.length; i++) {
+    cb(window.dancers[i]);
+  };
+}
+
 
 $(document).ready(function() {
   window.dancers = [];
@@ -117,13 +156,13 @@ $(document).ready(function() {
   });
   
   $(".lineUp").on("click", function(event) {
-
-
+    window.stopMoving = true;
     // $('.dancer').css({top:300, left: 400});
     for (var i = 0; i < window.dancers.length; i++) {
       // console.log(window.dancers[i]);
       window.dancers[i].setPosition(300,i*100+200);
     };
+
   });
 
   $(document).on('mouseover','.dancer', function(){
@@ -144,6 +183,10 @@ $(document).ready(function() {
       $( 'body' ).effect( "shake" );
     }
     var dancers = $('.dancer');
+    for (var k = window.dancers.length - 1; k >= 0; k--) {
+      _move(window.dancers[k],-100,0);
+      
+    };
     dancers.css({
         'background-image':'url("img/explosion.gif")', 
         'background-size':' 100% 100%',
@@ -176,7 +219,20 @@ $(document).ready(function() {
     }
           
   });
-  
+
+  $('.lissajous').on('click',function(){
+    window.stopMoving = false;
+    dancerEach(lissajousMove);
+  });
+
+  $('.stop').on('click',function(){
+    window.stopMoving = true;
+  });
+
+
+
+
+
 });
 
 
